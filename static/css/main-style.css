@@ -1,0 +1,277 @@
+@font-face {
+    font-family: SansSerif;
+    src: url("/static/font/MinecraftRegular.otf") format("opentype");
+}
+
+@font-face {
+    font-family: SansSerif;
+    font-weight: bold;
+    src: url("/static/font/MinecraftBold.otf") format("opentype");
+}
+
+* {
+    font-family: 'MinecraftCHMC', SansSerif, serif;
+}
+
+.full_height {
+    width: auto;
+    height: 100rem fit-content;
+}
+
+.back_home_btn {
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 99em;
+    color: #fff;
+    background-color: rgba(81, 0, 255, 0.75);
+    position: fixed;
+    right: 100rem;
+    top: 6rem;
+    margin-top: 0rem;
+    flex-direction: column;
+    cursor: pointer;
+    align-items: center;
+    background-color: rgba(126, 65, 255, 0.5);
+    border: 0;
+    box-shadow: rgba(126, 65, 255, 0.2) 0 15px 30px -5px;
+    box-sizing: border-box;
+    display: flex;
+    font-size: 2.5rem;
+    justify-content: center;
+    line-height: 1em;
+    width: fit-content;
+    max-width: 100%;
+    min-width: 140px;
+    padding: 3px;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    transition: all .3s;
+}
+.back_home_btn div {
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    padding: 1.25rem;
+    border-radius: 8px;
+    position: absolute;
+    max-height: calc(100vh - 100px);
+    width: 400px;
+    max-width: calc(100vw - 2rem);
+    bottom: calc(100% + 1rem);
+    right: 0;
+    overflow: auto;
+    transform-origin: 100% 100%;
+}
+.back_home_btn div::-webkit-scrollbar {
+    width: 15px;
+    background-color: #fff;
+}
+.back_home_btn div::-webkit-scrollbar-thumb {
+    width: 5px;
+    border-radius: 99em;
+    background-color: #ccc;
+    border: 5px solid #fff;
+}
+.back_home_btn div > * + * {
+    margin-top: 0.75em;
+}
+.back_home_btn div p > code {
+    font-size: 1rem;
+    font-family: monospace;
+    color: #185adb;
+    font-weight: 600;
+}
+.back_home_btn div pre {
+    white-space: pre-line;
+    background-color: #f9f9f9;
+    border: 1px solid #95a3b9;
+    border-radius: 6px;
+    font-family: monospace;
+    padding: 0.75em;
+    font-size: 0.875rem;
+}
+.back_home_btn[open] div {
+    -webkit-animation: scale 0.25s ease;
+    animation: scale 0.25s ease;
+}
+
+.back_home_txt {
+    border-radius: 99em;
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.15s ease;
+    position: relative;
+}
+.back_home_txt::-webkit-.back_home_btn-marker {
+    display: none;
+}
+.back_home_txt:hover, .back_home_txt:focus {
+    background-color: rgba(80, 12, 225, 0.75);
+}
+.back_home_txt i {
+    font-size: 1.375em;
+    margin-left: 0.25em;
+}
+
+@-webkit-keyframes scale {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes scale {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Add to your main-style.css */
+.grid-item {
+    cursor: pointer; /* Magnifier cursor */
+    width: 250px;
+    transform-origin: var(--zoom-pos-x, 0%) var(--zoom-pos-y, 0%);
+    transition: transform 0.15s linear;
+}
+
+.zoomable--zoomed .grid-item {
+  cursor: zoom-in;
+  transform: scale(var(--zoom, 2));
+}
+
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    cursor: default;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.lightbox.active {
+    display: flex;
+    opacity: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.lightbox.active img {
+    transform: scale(1);
+}
+
+.close-lightbox {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.close-lightbox:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Add navigation buttons */
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.lightbox-nav:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.lightbox-prev {
+    left: 20px;
+}
+
+.lightbox-next {
+    right: 20px;
+}
+
+    rid-item {
+    padding: 1rem;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #000;
+    background-color: #141015;
+    border-radius: 10px;
+}
+
+    pan-2 {
+    grid-column-end: span 2;
+    grid-row-end: span 2;
+}
+
+    pan-3 {
+    grid-column-end: span 3;
+    grid-row-end: span 4;
+}
+
+body.dark {
+    --surface: #220334 !important;
+}
+
+.zoomable__img {
+  transform-origin: var(--zoom-pos-x, 0%) var(--zoom-pos-y, 0%);
+  transition: transform 0.15s linear;
+}
+.zoomable--zoomed .zoomable__img {
+  cursor: zoom-in;
+  transform: scale(var(--zoom, 2));
+}
+
+/* ---- particles.js container ---- */
+
+#particles-js {
+    position: absolute;
+    top: 0;
+    width: 160rem;
+    height: 100rem fit-content;
+    background-size: cover;
+    z-index: -5;
+    opacity: 25%;
+}
