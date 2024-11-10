@@ -1,5 +1,5 @@
 from flask import Flask
-from bm import bp
+from smc import bp
 
 def create_app():
   app = Flask(__name__)

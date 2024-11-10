@@ -1,3 +1,4 @@
+from PIL import Image
 import os
 from flask import Blueprint, Flask, render_template, redirect
 from pathlib import Path
@@ -21,3 +22,10 @@ def fileexists_filter(filename):
       return os.path.isfile(static_path)
   except Exception as e:
       return False
+    
+def create_thumbnail(image_path, size=(400, 400)):
+  with Image.open(image_path) as img:
+      img.thumbnail(size)
+      thumbnail_path = f"thumbnails/{os.path.basename(image_path)}"
+      img.save(thumbnail_path)
+      return thumbnail_path

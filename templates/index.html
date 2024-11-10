@@ -2,20 +2,19 @@
 {% block content %}
 <div class="image-grid">
     {% for shot in range(1, 99) %}
-        {% set filename = 'shot' ~ loop.index ~ '.webp' %}
-        {% if filename|fileexists %}
-            <div class="grid-item" data-index="{{ loop.index }}">
-                <img 
-                    src="{{ url_for('static', filename='images/' + filename) }}" 
-                    alt="Shot {{ loop.index }}"
-                    loading="lazy"
-                    onload="this.parentElement.classList.remove('loading')"
-                >
-            </div>
-        {% endif %}
+    {% set filename = 'shot' ~ loop.index ~ '.webp' %}
+    {% if filename|fileexists %}
+    <div class="grid-item loading">
+        <img 
+            src="{{ url_for('static', filename='images/' + filename) }}" 
+            alt="Shot {{ loop.index }}"
+            loading="lazy"
+            onload="this.parentElement.classList.remove('loading')"
+        >
+    </div>
+    {% endif %}
     {% endfor %}
 </div>
-
 <!-- Lightbox -->
 <div class="lightbox">
     <div class="close-lightbox">
@@ -24,10 +23,10 @@
     <div class="lightbox-nav lightbox-prev">
         <i class="fas fa-chevron-left"></i>
     </div>
+    <img src="" alt="Enlarged view">
     <div class="lightbox-nav lightbox-next">
         <i class="fas fa-chevron-right"></i>
     </div>
-    <img src="" alt="Enlarged view" class="zoomable__img">
 </div>
 
 <script>
@@ -96,6 +95,25 @@ document.addEventListener('keydown', (e) => {
         lightboxImg.src = gridItems[currentImageIndex].src;
     }
 });
+
+if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target.querySelector('img');
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                }
+                observer.unobserve(entry.target);
+            }
+        });
+    });
+
+    document.querySelectorAll('.grid-item').forEach(item => {
+        imageObserver.observe(item);
+    });
+}
 
 /*
  * Constants
